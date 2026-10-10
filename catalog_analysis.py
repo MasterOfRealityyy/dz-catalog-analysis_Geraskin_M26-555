@@ -61,9 +61,32 @@ def decade_label(year):
             return "старые"
 
 
+for movie in movies:
+    if "comedy" in movie["genres"]:
+        continue
+    print(movie["title"])
+
+k = 0
+while k < len(movies):
+    if movies[k]["rating"] > 9.0:
+        print(movies[k]["title"])
+        break
+    k += 1
+else:
+    print("Шедевров не найдено")
+
+
+def count_long_movies(movies, threshold=120):
+    counter = 0
+    for movie in movies:
+        if movie["duration_min"] > threshold:
+            counter += 1
+    return counter
+
 
 print(average_rating(movies))
 print(catalog_age_stats(movies))
 print(duration_in_hours(movies[1]["duration_min"]))
 print(rating_tier(8.9))
 print(decade_label(2015))
+print(count_long_movies(movies))
