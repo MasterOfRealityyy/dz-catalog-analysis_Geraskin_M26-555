@@ -23,6 +23,8 @@ movies = [
      "rating": 7.3, "duration_min": 129, "actors": ["P. Diaz", "T. Chalamet"]},
 ]
 
+"""-------------------------------------------ЭТАП 1-------------------------------------------"""
+
 
 def average_rating(movies):
     avg_rate = round(sum(i["rating"] for i in movies) / len(movies), 1)
@@ -43,6 +45,9 @@ def duration_in_hours(minutes):
     return f"{hours}ч {mins}м"
 
 
+"""-------------------------------------------ЭТАП 2-------------------------------------------"""
+
+
 def rating_tier(rating):
     if rating >= 9:
         return "шедевр"
@@ -60,6 +65,8 @@ def decade_label(year):
         case _ if year < 2015:
             return "старые"
 
+
+"""-------------------------------------------ЭТАП 3-------------------------------------------"""
 
 for movie in movies:
     if "comedy" in movie["genres"]:
@@ -84,9 +91,30 @@ def count_long_movies(movies, threshold=120):
     return counter
 
 
+"""-------------------------------------------ЭТАП 4-------------------------------------------"""
+
+
+def normalize_title(title):
+    words = title.split()
+    result = " ".join([word[0].upper() + word[1:].lower() for word in words])
+    return result
+
+
+def make_slug(title):
+    result = title.lower().replace(" ", "-")
+    return result
+
+
+def format_report_line(movie):
+    return f"\"{movie['title']}\" ({movie['year']}) — {movie['rating']}/10, {duration_in_hours(movie['duration_min'])}, жанры: {', '.join(sorted(movie['genres']))}"
+
+
 print(average_rating(movies))
 print(catalog_age_stats(movies))
 print(duration_in_hours(movies[1]["duration_min"]))
 print(rating_tier(8.9))
 print(decade_label(2015))
 print(count_long_movies(movies))
+print(normalize_title("silent hill"))
+print(make_slug("Silent Hill"))
+print(format_report_line(movies[8]))
