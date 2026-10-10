@@ -122,6 +122,28 @@ def top_n_by_rating(movies, n=3):
     return [(m["title"], m["rating"]) for m in sorted_movies[:n]]
 
 
+"""-------------------------------------------ЭТАП 6-------------------------------------------"""
+
+
+def count_by_genre(movies):
+    result = {}
+    for movie in movies:
+        for genre in movie["genres"]:
+            result[genre] = result.get(genre, 0) + 1
+    return result
+
+
+def actor_filmography(movies):
+    result = {}
+    for movie in movies:
+        for actor in movie["actors"]:
+            result.setdefault(actor, []).append(movie["title"])
+    return result
+
+
+movie_rating = {movie["title"]: movie["rating"] for movie in movies if movie["rating"] > average_rating(movies)}
+print(movie_rating)
+
 print(average_rating(movies))
 print(catalog_age_stats(movies))
 print(duration_in_hours(movies[1]["duration_min"]))
@@ -133,3 +155,5 @@ print(make_slug("Silent Hill"))
 print(format_report_line(movies[8]))
 print(titles_sorted_by_rating(movies))
 print(top_n_by_rating(movies))
+print(count_by_genre(movies))
+print(actor_filmography(movies))
