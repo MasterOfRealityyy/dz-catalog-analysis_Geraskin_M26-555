@@ -106,7 +106,7 @@ def make_slug(title):
 
 
 def format_report_line(movie):
-    return f"\"{movie['title']}\" ({movie['year']}) — {movie['rating']}/10, {duration_in_hours(movie['duration_min'])}, жанры: {', '.join(sorted(movie['genres']))}"
+    return f"\"{normalize_title(movie['title'])}\" ({movie['year']}) — {movie['rating']}/10, {duration_in_hours(movie['duration_min'])}, жанры: {', '.join(sorted(movie['genres']))}"
 
 
 """-------------------------------------------ЭТАП 5-------------------------------------------"""
@@ -162,6 +162,21 @@ def common_actors(movie1, movie2):
 def genres_only_in_one(movies_a, movies_b):
     result = all_genres(movies_a) - all_genres(movies_b)
     return result
+
+
+"""-------------------------------------------ЭТАП 8-------------------------------------------"""
+
+
+def iter_high_rated(movies, min_rating=8.0):
+    for m in movies:
+        if m["rating"] >= min_rating:
+            yield m
+
+
+for movie in iter_high_rated(movies):
+    print(format_report_line(movie))
+
+print("Сумма длительности фильмов с рейтингом больше 7:", sum(m["duration_min"] for m in movies if m["rating"] > 7))
 
 
 print(average_rating(movies))
