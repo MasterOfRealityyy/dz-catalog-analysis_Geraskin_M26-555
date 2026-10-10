@@ -144,6 +144,26 @@ def actor_filmography(movies):
 movie_rating = {movie["title"]: movie["rating"] for movie in movies if movie["rating"] > average_rating(movies)}
 print(movie_rating)
 
+"""-------------------------------------------ЭТАП 7-------------------------------------------"""
+
+
+def all_genres(movies):
+    result = set()
+    for movie in movies:
+        result.update(movie["genres"])
+    return result
+
+
+def common_actors(movie1, movie2):
+    result = set(movie1["actors"]) & set(movie2["actors"])
+    return result
+
+
+def genres_only_in_one(movies_a, movies_b):
+    result = all_genres(movies_a) - all_genres(movies_b)
+    return result
+
+
 print(average_rating(movies))
 print(catalog_age_stats(movies))
 print(duration_in_hours(movies[1]["duration_min"]))
@@ -157,3 +177,6 @@ print(titles_sorted_by_rating(movies))
 print(top_n_by_rating(movies))
 print(count_by_genre(movies))
 print(actor_filmography(movies))
+print(all_genres(movies))
+print(common_actors(movies[0], movies[3]))
+print(genres_only_in_one(movies[5:6], movies[:5]))
