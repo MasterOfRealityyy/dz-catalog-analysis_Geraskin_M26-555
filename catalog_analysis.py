@@ -109,6 +109,19 @@ def format_report_line(movie):
     return f"\"{movie['title']}\" ({movie['year']}) — {movie['rating']}/10, {duration_in_hours(movie['duration_min'])}, жанры: {', '.join(sorted(movie['genres']))}"
 
 
+"""-------------------------------------------ЭТАП 5-------------------------------------------"""
+
+
+def titles_sorted_by_rating(movies):
+    sorted_movies = sorted(movies, key=lambda m: m["rating"], reverse=True)
+    return [m["title"] for m in sorted_movies]
+
+
+def top_n_by_rating(movies, n=3):
+    sorted_movies = sorted(movies, key=lambda m: m["rating"], reverse=True)
+    return [(m["title"], m["rating"]) for m in sorted_movies[:n]]
+
+
 print(average_rating(movies))
 print(catalog_age_stats(movies))
 print(duration_in_hours(movies[1]["duration_min"]))
@@ -118,3 +131,5 @@ print(count_long_movies(movies))
 print(normalize_title("silent hill"))
 print(make_slug("Silent Hill"))
 print(format_report_line(movies[8]))
+print(titles_sorted_by_rating(movies))
+print(top_n_by_rating(movies))
